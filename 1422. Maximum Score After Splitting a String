@@ -1,0 +1,38 @@
+01/01/2025
+Question link :https://leetcode.com/problems/maximum-score-after-splitting-a-string/description/
+TC(N), SC(N)
+calculate prefix and suffix sum then calculate maximum sum of prefix[index]+suffix[index].
+class Solution {
+    public int maxScore(String s) {
+        int l[]=new int[s.length()];
+        int r[]=new int[s.length()];
+        int cnt=0;
+        int n=s.length();
+        for(int i=0;i<n-1;i++){
+            if(s.charAt(i)=='0'){
+                cnt++;
+            }
+            l[i]=cnt;
+               //System.out.print(l[i]);
+        }
+        cnt=0;
+        for(int i=n-1;i>=1;i--){
+            if(s.charAt(i)=='1'){
+                cnt++;
+            }
+            r[i]=cnt;
+               //System.out.print(r[i]);
+        }
+        int a=0;
+        int b=1;
+        int max=0;
+        while(b<n){
+            max=Math.max(max,l[a]+r[b]);
+            b++;
+            a++;
+        }
+        return max;
+     
+
+    }
+}
