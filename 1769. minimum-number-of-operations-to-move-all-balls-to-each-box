@@ -1,0 +1,30 @@
+06/01/2025
+Leetcode 1769 : https://leetcode.com/problems/minimum-number-of-operations-to-move-all-balls-to-each-box/description/
+TC(N2) SC(1)
+APPROACH PREFIX SUM LOGIC(TRAVERSE ON STRING  AND CHECK BALL CONTAIN AND ADD)
+****java*****
+class Solution {
+    public int[] minOperations(String boxes) {
+        int n=boxes.length();
+        int pre[]= new int [n];
+        for(int i=0;i<n-1;i++){
+          
+            for(int j=i+1;j<n;j++){
+            if(boxes.charAt(j)=='1')
+            pre[i]+= (j-i);
+        }
+        if(i>=1){
+               for(int k=0;k<i;k++){
+            if(boxes.charAt(k)=='1')
+            pre[i]+= (i-k);
+        }
+        }
+        }
+        for(int idx=n-2;idx>=0;idx--){
+            if(boxes.charAt(idx)=='1')
+            pre[n-1]+=(n-1-idx);
+        }
+        return pre;
+    }
+}
+
