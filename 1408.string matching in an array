@@ -1,0 +1,53 @@
+07/01/2025
+leetcode 1408 : https://leetcode.com/problems/string-matching-in-an-array/
+approach- kmp algorithm
+TC(N2*M)  ,SC(M*N)
+****java****
+class Solution {
+    public List<String> stringMatching(String[] words) {
+     List<String> ls=new ArrayList<>();
+     int n=words.length;
+     for(int i=0;i<n;i++){
+    for(int j=0;j<n;j++){
+        if(i==j)continue;
+       if( kmp(words[i],words[j])){
+        ls.add(words[i]);
+        break;
+       }
+    }
+     }   
+     return ls;
+    }
+    public boolean kmp(String p,String t){
+        int lps[]= computelps(p);
+        int i=0,j=0;
+        int N = t.length();
+        int M = p.length();
+        while(i<N && j<M){
+            if(t.charAt(i)==p.charAt(j)){i++;j++;}
+            else{
+                if(j!=0) j=lps[j-1];
+                else i++; //j==0
+            }
+            if(M==j)return true;
+        }
+        return false;
+    }
+    public int [] computelps(String p){
+        int lps[]= new int[p.length()];
+        int j=0;
+        lps[0]=0;
+        for(int i=1;i<p.length();){
+            if(p.charAt(i)==p.charAt(j)){
+                lps[i]=j+1;
+                i++;j++;
+            }else{
+                if(j!=0)j=lps[j-1];
+                else{
+                    lps[i]=0;
+                    i++;
+                }
+            }
+        }
+   return lps; }
+}
