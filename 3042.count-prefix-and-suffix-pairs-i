@@ -1,0 +1,19 @@
+08/01/2025
+letcode 3042: https://leetcode.com/problems/count-prefix-and-suffix-pairs-i/
+tc(n2 *m) sc(1)
+class Solution {
+    public int countPrefixSuffixPairs(String[] words) {
+        int n=words.length;
+        int cnt=0;
+        for(int i=0;i<n-1;i++){
+            for(int j=i+1;j<n;j++){
+                String s1=words[i];
+                String s2 =words[j];
+                if(s1.length()>s2.length()) continue;
+                if(s2.startsWith(s1) && s2.endsWith(s1))
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+}
