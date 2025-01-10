@@ -1,0 +1,99 @@
+10/01/2025
+leetcode 916:   https://leetcode.com/problems/word-subsets/description/
+approach max freq(word2) cal and check
+****java****(n+m)
+class Solution {
+    int fre[]= new int[26];
+    public List<String> wordSubsets(String[] words1, String[] words2) {
+         List<String> ls = new ArrayList<>();
+        for(int i=0;i<words2.length;i++){
+         String s= words2[i];
+         int idx=0;
+           int temp[]= new int[26];
+         while(idx<s.length()){
+            temp[s.charAt(idx)-'a']++;
+            idx++;
+         }
+         for (int j = 0; j < 26; j++) 
+         fre[j]=Math.max(fre[j],temp[j]);
+        }
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < 26; i++) {
+            if (fre[i] > 0) {
+                map.put((char) (i + 'a'), fre[i]);
+            }
+        }
+         for (String word : words1) {
+            if (check(word, map)) {
+                ls.add(word);
+            }
+         }
+       return ls; 
+    }
+    public boolean check(String s, HashMap<Character, Integer> map) {
+        // Create a local copy of the map to reset it for each word
+        HashMap<Character, Integer> tempMap = new HashMap<>(map);
+
+        // Iterate through the word and check if it contains all required characters
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (tempMap.containsKey(ch)) {
+                int count = tempMap.get(ch);
+                if (count > 0) {
+                    tempMap.put(ch, count - 1);  // Decrease the frequency in the temp map
+                }
+            }
+        }
+
+        // After processing the word, check if all required characters are covered
+        for (Map.Entry<Character, Integer> entry : tempMap.entrySet()) {
+            if (entry.getValue() > 0) {
+                return false;  // If any character is still required, return false
+            }
+        }
+
+        return true;  // All characters are satisfied
+    }
+}
+
+****optimize*******
+class Solution {
+    public List<String> wordSubsets(String[] words1, String[] words2) {
+        List<String> result = new ArrayList<>();
+        
+        // Step 1: Calculate the maximum frequency requirement for words2
+        int[] freq2 = new int[26]; // Frequency array for all characters
+        for (String word : words2) {
+            int[] temp = new int[26]; // Temporary frequency array for the current word
+            for (char ch : word.toCharArray()) {
+                temp[ch - 'a']++;
+                freq2[ch - 'a'] = Math.max(freq2[ch - 'a'], temp[ch - 'a']);
+            }
+        }
+        
+        // Step 2: Check each word in words1
+        for (String word : words1) {
+            int[] temp = new int[26]; // Frequency array for the current word
+            for (char ch : word.toCharArray()) {
+                temp[ch - 'a']++;
+            }
+            
+            // Check if the word satisfies the universal condition
+            if (isSubset(freq2, temp)) {
+                result.add(word);
+            }
+        }
+        
+        return result;
+    }
+    
+    // Helper method to check if freq2 is a subset of temp
+    private boolean isSubset(int[] freq2, int[] temp) {
+        for (int i = 0; i < 26; i++) {
+            if (temp[i] < freq2[i]) {
+                return false; // Not a subset
+            }
+        }
+        return true;
+    }
+}
