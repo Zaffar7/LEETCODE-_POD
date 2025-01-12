@@ -1,0 +1,29 @@
+12/01/2025
+leetcode 2116 :https://leetcode.com/problems/check-if-a-parentheses-string-can-be-valid/
+APPROACH:take 2 stack one is for lock0, other only for open+lock1, if closed come you can fetch open in both stack which one gives otherwise false return .
+edge case non empty stack after traverse lock0 come after other stack.
+java solution tc (n),sc(2*n)
+class Solution {
+    public boolean canBeValid(String s, String locked) {
+        Stack<Integer>st = new Stack<>();
+          Stack<Integer>mix = new Stack<>();
+        if(s.length()%2==1) return false;
+        for(int i=0;i<s.length();i++){
+            if(locked.charAt(i)=='0')mix.push(i);
+            else if(s.charAt(i)=='('){
+                st.push(i);
+            }else if(s.charAt(i)==')'){
+                 if (!st.empty()){st.pop(); continue;}
+               else if(!mix.empty()){mix.pop(); continue;}
+               else return false;}
+        }
+  while (!st.empty() && !mix.empty() &&st.peek() < mix.peek()){
+ st.pop();
+            mix.pop();
+         }
+         if (!st.empty()) {
+            return false;
+        }
+        return true;
+    }
+}
