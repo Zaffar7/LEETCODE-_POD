@@ -1,0 +1,24 @@
+13/1/2025
+Leetcode 3223: https://leetcode.com/problems/minimum-length-of-string-after-operations/
+Approach :calculate frequency those >=3 substract till below 3 then cal finallength of string
+***java***O(N)
+class Solution {
+    public int minimumLength(String s) {
+         int[] freq = new int[26];
+        int n=s.length();
+        for(int i=0;i<s.length();i++){
+            freq[s.charAt(i)-'a']++;
+        }    
+      int cnt=0;
+        for(int i=0;i<26;i++){
+            while(freq[i]>=3){
+                freq[i]=freq[i]-2; 
+                cnt++;    
+            }
+        } 
+        return n-(2*cnt);
+      /*  int sum=0;
+        for(int i=0;i<26;i++){sum+=freq[i];}
+        return sum;*/
+    }
+}
