@@ -1,0 +1,20 @@
+21/1/2025
+leetcode :https://leetcode.com/problems/grid-game/
+approach : phle first row ka sum nikalo,2move h (right,down) ekbaar down aane ke baad up nahi hoga waha se max path nikal ke usme se min lena h
+****java****
+class Solution {
+    public long gridGame(int[][] grid) {
+        int n=grid[0].length;
+        long first=0;
+        long second=0;
+        long ans=Long.MAX_VALUE;
+        for(int i=0;i<n;i++){
+          first+=grid[0][i];  
+        }
+        
+        for(int i=0;i<n;i++){
+            first-=grid[0][i];
+       ans=Math.min(ans,Math.max(first,second));      
+       second+=grid[1][i]; }
+       return ans;
+}}
