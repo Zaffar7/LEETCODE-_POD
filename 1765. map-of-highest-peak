@@ -1,0 +1,39 @@
+22/01/2025
+Leetcode : https://leetcode.com/problems/map-of-highest-peak/description/
+multi bfs concept start where water cell to set 0 apply bfs
+java code TC(M*N)
+class Solution {
+    public int[][] highestPeak(int[][] isWater) {
+      int m = isWater.length;
+ int n = isWater[0].length;
+        int [][]ans= new int [m][n];
+        for(int i=0;i<m;i++)Arrays.fill(ans[i],-1);
+        Queue<int[]> q= new LinkedList<>();
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(isWater[i][j]==1){
+                    ans[i][j]=0;
+                    q.add(new int []{i,j});
+                }
+            }
+        }
+        int dr[]={0,1,0,-1};
+        int dc[]={1,0,-1,0};
+        while(q.size()>0){
+            int []rv= q.remove();
+            int i=rv[0];
+            int j=rv[1];
+            int h=ans[i][j];
+            for(int l=0;l<4;l++){
+                int r=i+dr[l];
+                int c= j+dc[l];
+                if(r>=0 && r<m && c>=0 && c<n && ans[r][c]==-1){   
+                      ans[r][c]=h+1;
+                      q.add(new int []{r,c});
+                    }
+            }
+            
+        }
+        return ans;
+    }
+}
