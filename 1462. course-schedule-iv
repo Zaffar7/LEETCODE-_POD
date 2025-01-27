@@ -1,0 +1,50 @@
+27/01/2025
+leetcode :https://leetcode.com/problems/course-schedule-iv/description/
+approach - apply topo sort(kahn algo)+ crete adj list and check
+java:
+class Solution {
+    public List<Boolean> checkIfPrerequisite(int numCourses, int[][] prerequisites, int[][] queries) {
+        int n= prerequisites.length ;
+        List<Boolean> ans= new ArrayList<>();
+        List<List<Integer>> adj= new ArrayList<>();
+        for(int i=0;i<numCourses;i++){
+            adj.add(new ArrayList<>());
+        }
+       
+        // Populate the adjacency list using the prerequisites
+        for (int i = 0; i < prerequisites.length; i++) {
+            int u = prerequisites[i][0];
+            int v = prerequisites[i][1];
+            adj.get(u).add(v); // Add v as a dependent of u
+        }
+Queue<Integer>q= new LinkedList<>();
+List<Set<Integer>>op= new ArrayList<>();
+for (int i = 0; i < numCourses; i++) {
+            op.add(new HashSet<>());
+        }
+int deg[]= new int [numCourses];
+for(int i=0;i<deg.length;i++){
+    for(int nbr:adj.get(i))deg[nbr]++;
+}
+for(int i=0;i<numCourses;i++){
+            if(deg[i]==0)q.add(i);
+          }
+ while(q.size()>0){   
+            int node=q.poll();
+          //  op.add(node);
+            for(int nbr:adj.get(node)){
+                op.get(nbr).addAll(op.get(node));
+                op.get(nbr).add(node);
+                deg[nbr]--;
+                if(deg[nbr]==0)q.add(nbr);
+            }
+        }
+for (int[] query : queries) {
+            int a = query[0];
+            int b = query[1];
+            ans.add(op.get(b).contains(a));
+        }
+return ans;
+    
+    }
+}
