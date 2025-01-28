@@ -1,0 +1,40 @@
+28/01/2025
+leetcode :https://leetcode.com/problems/maximum-number-of-fish-in-a-grid/description/
+approach dfs apply on grid and cal max sum
+_-_java_-_
+class Solution {
+    
+    public int findMaxFish(int[][] grid) {
+         int  m = grid.length;
+       int n= grid[0].length;
+        int ans=0;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(grid[i][j]>0){
+                    ans=Math.max(ans,dfs(grid,i,j));
+            }
+            }
+        }return ans;
+    }
+   public  int dfs(int[][] grid,int i, int j){
+     int  m = grid.length;
+       int n= grid[0].length;
+        
+         if (i < 0 || i >= m || j < 0 || j >= n || grid[i][j] == 0) {
+            return 0;
+        }
+      int   sum=grid[i][j];
+        grid[i][j]=0;
+ int dr[]={1,0,-1,0};
+        int dc[]={0,1,0,-1};
+        for(int k=0;k<4;k++){
+            int r= i+dr[k];
+            int c=j+dc[k];
+           
+               sum+=dfs(grid,r,c);
+
+            
+        }
+        return sum;
+    }
+}
