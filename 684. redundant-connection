@@ -1,0 +1,37 @@
+29/01/2025
+leetcode :https://leetcode.com/problems/redundant-connection/description/
+approach - cycle detect before making adjlist(dfs)
+*****java*****
+ class Solution {
+    public int[] findRedundantConnection(int[][] edges) {
+        int n= edges.length;
+          List<List<Integer>>ls = new ArrayList<>();
+         for (int i = 0; i <= n; i++) {
+            ls.add(new ArrayList<>());
+        }
+         int ans[]= new int[2];
+         for(int i=0;i<n;i++){
+         int a= edges[i][0];
+        int b= edges[i][1];
+         
+                int []vis = new int [n+1];
+               if( dfs(vis, a,b, ls)){
+                ans[0]=a;
+                ans[1]=b;
+                }
+                 ls.get(a).add(b);
+                ls.get(b).add(a);
+         }
+        return ans; 
+    }
+     boolean dfs(int []vis,int node,int target, List<List<Integer>>ls){
+         if (node == target) return true;
+        vis[node]=1;
+        for(int nbr: ls.get(node)){
+            if(vis[nbr]==0) {
+               if (dfs(vis,nbr,target,ls))return true;
+            }
+        }
+        return false;
+     }
+}
