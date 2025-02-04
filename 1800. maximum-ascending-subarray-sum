@@ -1,0 +1,43 @@
+04/02/2025
+leetcode :https://leetcode.com/problems/maximum-ascending-subarray-sum/description/
+approach : traverse and calmax sum of increasing order subarray
+****java****O(N)
+class Solution {
+    /* public boolean inr(int []nums, int i,int j){
+        for(int k=i;k<j;k++){
+            if(nums[k+1]<=nums[k]) return false;
+        }
+        return true;
+    }*/
+    public int maxAscendingSum(int[] nums) {
+         int max=nums[0];
+          int  sum=0;
+        for(int i=0;i<nums.length;i++){
+            //int len=0;
+         
+          if(i>0 && nums[i]>nums[i-1]){  sum+=nums[i];
+        //  System.out.print(sum);
+          max= Math.max(max,sum);
+        //  System.out.print(max);
+        }
+          else { sum=nums[i]; 
+         // System.out.print(sum);
+         max= Math.max(max,sum);
+          //System.out.print(max);
+          }
+          }
+     
+          
+          
+          /*  for(int j=i+1;j<nums.length;j++){
+              if( inr(nums,i,j)){ //len =j-i+1;
+              sum+=nums[j];
+            //  System.out.print(sum);
+              max= Math.max(max,sum);
+             //  System.out.print(max);
+              } else break;
+                }  
+        }*/
+        return max;
+    }
+}
