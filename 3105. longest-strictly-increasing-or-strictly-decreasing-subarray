@@ -1,0 +1,36 @@
+03/02/2025
+leetcode:https://leetcode.com/problems/longest-strictly-increasing-or-strictly-decreasing-subarray/
+java O(N2) :
+class Solution {
+    public boolean inr(int []nums, int i,int j){
+        for(int k=i;k<j;k++){
+            if(nums[k+1]<=nums[k]) return false;
+        }
+        return true;
+    }
+    public boolean dr(int []nums, int i,int j){
+        for(int k=i;k<j;k++){
+            if(nums[k+1]>=nums[k]) return false;
+        }
+        return true;
+    }
+    public int longestMonotonicSubarray(int[] nums) {
+        int ans=1;
+        for(int i=0;i<nums.length;i++){
+            int len=0;
+            for(int j=i;j<nums.length;j++){
+              if( inr(nums,i,j)){ len =j-i+1;
+              ans=Math.max(ans,len);}else break;
+                }  
+        }
+         int dec=1;
+        for(int i=0;i<nums.length;i++){
+            int len=0;
+            for(int j=i;j<nums.length;j++){
+                    if( dr(nums,i,j)) {len =j-i+1;
+              dec=Math.max(dec,len); }else break;
+                } 
+            }
+        return Math.max(ans,dec);
+    }
+}
