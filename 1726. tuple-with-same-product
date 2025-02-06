@@ -1,0 +1,29 @@
+06/02/2025
+leetcode :https://leetcode.com/problems/tuple-with-same-product/description/
+approach: make product pair combination and count+=8
+java 
+class Solution {
+    public int tupleSameProduct(int[] nums) {
+        HashMap<Integer,Integer> map= new HashMap<>();
+        int count=0;
+       for(int i=0;i<nums.length-1;i++){
+          int a=nums[i];
+          for(int j=i+1;j<nums.length;j++){
+            int b= nums[j];
+            
+            map.put(a*b,map.getOrDefault(a*b,0)+1);
+            
+          }
+       } 
+        for (Map.Entry<Integer,Integer> mapElement : map.entrySet()) {
+     int val = (mapElement.getValue());
+     if(val>1){
+        count+=8*(val*(val-1)/2);
+     }
+         }
+    return count;}
+    /*public int fact(int n){
+        if(n<=1) return 1;
+        return n*fact(n-1);
+    }*/
+}
