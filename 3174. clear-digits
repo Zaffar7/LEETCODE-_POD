@@ -1,0 +1,19 @@
+10/02/2025
+leetcode : https://leetcode.com/problems/clear-digits/description/
+Approach: remove past character + when digit come
+***java***
+class Solution {
+    public String clearDigits(String s) {
+        StringBuilder sb = new StringBuilder(s);
+        int i=1;
+        while(i<sb.length()){
+          if(sb.charAt(i)>='0' && sb.charAt(i)<='9'){
+            sb.deleteCharAt(i); 
+          if(i>0) {sb.deleteCharAt(i-1); } 
+          i--;}
+          else i++;
+          if(sb.length()==0) return sb.toString();
+        }
+        return sb.toString();
+    }
+}
