@@ -1,0 +1,17 @@
+11/02/2025
+leetcode : https://leetcode.com/problems/remove-all-occurrences-of-a-substring/?envType=daily-question&envId=2025-02-11
+approach : checking substring equal then delete substring
+java
+class Solution {
+    public String removeOccurrences(String s, String part) {
+        StringBuilder sb = new StringBuilder(s);
+        for(int i=0;i<=sb.length()-part.length();){
+           if(sb.substring(i,i+part.length()).equals(part)){
+            sb.delete(i,i+part.length());
+          // i = Math.max(0, i - 1);
+          i = 0; 
+           }else i++;
+        }
+        return sb.toString();
+    }
+}
