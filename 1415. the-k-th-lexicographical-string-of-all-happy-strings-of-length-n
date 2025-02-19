@@ -1,0 +1,37 @@
+19/02/2025
+leetcode :https://leetcode.com/problems/the-k-th-lexicographical-string-of-all-happy-strings-of-length-n/description/
+Approach - generate all n length usme condition laga do phir sort krdo phir kth wala return krdo
+java(N*2^N)
+class Solution {
+    List<String> ls= new ArrayList<>();
+    public String getHappyString(int n, int k) {
+        StringBuilder sb= new StringBuilder();
+        String s= "abc";
+        generate(sb,n,s);
+        Collections.sort(ls);
+        if(ls.size()>=k) 
+        return ls.get(k-1);
+        return "";
+    }
+    void generate( StringBuilder sb,int n,String s){
+        
+        if(sb.length()==n) {ls.add(sb.toString());  return;}
+       for (char c : s.toCharArray()) {
+            if (sb.length() == 0 || sb.charAt(sb.length() - 1) != c) {
+                sb.append(c);
+                generate(sb, n, s);
+                sb.deleteCharAt(sb.length() - 1);  // Backtracking step
+            }
+        }
+
+        /*if(sb.charAt(sb.length()-1)!=s.charAt(i)){
+          sb.append(s.charAt(i));
+          generate(sb,i,n,s);
+          sb.delete(sb.length()-1, sb.length());
+          generate(sb,i,n,s);
+        }
+        else { if(i+1<s.length()) i++;
+        }*/
+        
+    }
+}
