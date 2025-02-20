@@ -1,0 +1,26 @@
+20/2/2025
+leetcode :https://leetcode.com/problems/find-unique-binary-string/
+Approach: generate all string then add in set then traverse in string check set contain then remove from set and return any element in set
+java
+class Solution {
+    HashSet<String>set= new HashSet<>();
+    public String findDifferentBinaryString(String[] nums) {
+        StringBuilder sb= new StringBuilder();
+         String s= "01";
+        generate(sb,nums.length,s);
+        for(int i=0;i<nums.length;i++){
+            if(set.contains(nums[i])){
+                set.remove(nums[i]);
+            }
+        }
+       return set.iterator().next();
+    }
+    public void generate(StringBuilder sb,int n,String s){
+        if(sb.length()==n){set.add(sb.toString()); return ;}
+        for (char c : s.toCharArray()) {
+        sb.append(c);
+                generate(sb, n, s);
+                sb.deleteCharAt(sb.length() - 1); 
+        }
+    }
+}
