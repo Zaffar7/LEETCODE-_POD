@@ -1,0 +1,29 @@
+25/02/2025
+leetcode: https://leetcode.com/problems/number-of-sub-arrays-with-odd-sum/description/
+approach: first cal prefix sum then check odd or even and also 2 variable cnt for odd/even element
+java
+class Solution {
+    public int numOfSubarrays(int[] arr) {
+        int cnt=0;
+        int mod=1000000007;
+        int pre[]= new int [arr.length];
+        pre[0]=arr[0];
+        for(int i=1;i<arr.length;i++){
+           pre[i]=pre[i-1]+arr[i];    
+        }
+        int oddc=0;
+        int evenc=1;
+        for(int i=0;i<pre.length;i++){
+            if(pre[i]%2!=0){
+                oddc++;
+               cnt=(cnt+evenc)%mod;
+               
+            }else{
+                evenc++;
+                  cnt=(cnt+oddc)%mod;
+            }
+
+        }
+        return cnt;
+    }
+}
