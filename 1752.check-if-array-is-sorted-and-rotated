@@ -1,0 +1,23 @@
+02/02/2025
+leetcode: https://leetcode.com/problems/check-if-array-is-sorted-and-rotated/description/?envType=daily-question&envId=2025-02-02
+java
+class Solution {
+    public boolean check(int[] nums) {
+        int sort[]= Arrays.copyOf(nums, nums.length);
+        Arrays.sort(sort);
+        int n=nums.length;
+        //System.arraycopy(nums, 0, sort, 0, nums.length);
+      for (int r = 0; r < n; r++) {
+            boolean isValid = true;
+            for (int i = 0; i < n; i++) {
+                if (sort[i] != nums[(i + r) % n]) {
+                    isValid = false;
+                    break;
+                }
+            }
+            if (isValid) return true;
+        }
+        
+        return false;
+    }
+}
