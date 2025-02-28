@@ -1,0 +1,40 @@
+08/02/2025
+leetcode: https://leetcode.com/problems/design-a-number-container-system/description/?envType=daily-question&envId=2025-02-08
+java
+class NumberContainers {
+HashMap<Integer,Integer> map1;
+HashMap<Integer,TreeSet<Integer>> map2;
+    public NumberContainers() {
+        map1=new HashMap<>();
+        map2= new HashMap<>();
+    }
+    
+    public void change(int index, int number) {
+        if (map1.containsKey(index)) {
+            int previousNumber = map1.get(index);
+            map2.get(previousNumber).remove(index);
+            if (map2.get(previousNumber).isEmpty()) {
+                map2.remove(previousNumber);
+            }
+        }
+        // Update the number and add the index to the new number's set
+        map1.put(index, number);
+        map2.putIfAbsent(number, new TreeSet<>());
+        map2.get(number).add(index);
+    }
+    
+    
+    public int find(int number) {
+       if (map2.containsKey(number)){
+        return map2.get(number).first();
+       }return -1;
+        
+    }
+}
+
+/**
+ * Your NumberContainers object will be instantiated and called as such:
+ * NumberContainers obj = new NumberContainers();
+ * obj.change(index,number);
+ * int param_2 = obj.find(number);
+ */
